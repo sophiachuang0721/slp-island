@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>語言治療師工作島</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--s1:#cdeae6;--s2:#9fd3cf;--bg:#e4f1ef;--sea:#bfe0dc;--ink:#12303a;--sub:#4a6a72;--card:#ffffff;--a:#1f7a6d;--b:#d9822b;--ok:#2f8f4e;--bad:#c0452f;--line:#a9cfca;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--s1:#1c4350;--s2:#12303a;--bg:#0e2227;--sea:#173540;--ink:#e6f3f1;--sub:#9cbbb9;--card:#1a3b44;--a:#5fcfbd;--b:#f0a35a;--ok:#5fcf86;--bad:#f08a76;--line:#2c5560}}
+:root[data-theme="dark"]{--s1:#1c4350;--s2:#12303a;--bg:#0e2227;--sea:#173540;--ink:#e6f3f1;--sub:#9cbbb9;--card:#1a3b44;--a:#5fcfbd;--b:#f0a35a;--ok:#5fcf86;--bad:#f08a76;--line:#2c5560}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.6}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:30px;font-weight:900;margin:4px 0 2px;letter-spacing:.04em}
+.lead{color:var(--sub);margin:0 0 14px}
+.sea{background:var(--sea);border-radius:28px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.isle{border:0;background:transparent;color:var(--ink);font:inherit;cursor:pointer;padding:6px 4px 12px;border-radius:22px;text-align:center}
+.isle svg{width:100%;height:auto;display:block}
+.isle b{display:block;font-size:17px;font-weight:700}
+.isle small{color:var(--sub)}
+.isle[aria-pressed="true"]{background:var(--card);outline:3px solid var(--ink)}
+.isle:focus-visible,button:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+.panel{background:var(--card);border-radius:24px;padding:18px;margin-top:14px;border:1px solid var(--line)}
+h2{font-size:21px;margin:0 0 4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{font:inherit;font-weight:700;min-width:46px;min-height:46px;padding:6px 12px;border-radius:14px;border:2px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--a);border-color:var(--a);color:#fff}
+.chip.done::after{content:" ★"}
+.word{background:var(--bg);border-radius:20px;padding:20px;text-align:center;margin-top:8px}
+.word .big{font-size:54px;font-weight:900;line-height:1.2}
+.word .tgt{color:var(--sub);margin-top:4px}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:14px;padding:12px 18px;min-height:46px;cursor:pointer;background:var(--a);color:#fff}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.b{background:var(--b);color:#1a1205}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.q{font-size:19px;font-weight:700;margin:12px 0}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;text-align:left;padding:13px 16px;border-radius:14px;border:2px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;min-height:48px}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,transparent)}
+.note{color:var(--sub);font-size:14px;margin-top:6px}
+.fb{min-height:1.6em;margin-top:8px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}.cell{background:var(--bg);border-radius:14px;padding:10px;display:flex;flex-direction:column;font-size:13px;color:var(--sub)}.cell b{font-size:18px;color:var(--ink)}.ta{width:100%;min-height:110px;margin-top:10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;padding:10px}
+#map{width:100%;height:auto;display:block;border-radius:28px}.say{margin:0 0 10px;font-weight:700;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px}.isl{cursor:pointer;outline:none}.isl .ring{opacity:0}.isl[aria-pressed="true"] .ring{opacity:.7}.isl:focus-visible .ring{opacity:1;stroke:var(--b)}.isl text{font-family:inherit;font-weight:700;fill:var(--ink);font-size:15px}
+@media (prefers-reduced-motion:no-preference){.boat{animation:bob 4s ease-in-out infinite}@keyframes bob{50%{transform:translateY(3px)}}.wv{animation:drift 9s ease-in-out infinite alternate}@keyframes drift{to{transform:translateX(14px)}}}
+
+#map{width:100%;height:auto;display:block;border-radius:28px;background:linear-gradient(var(--s1),var(--s2))}
+#map text{font-family:inherit}
+.say{margin:0 0 10px;font-weight:700;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.rl{font-size:13px;font-weight:700;fill:var(--ink)}.tc{font-size:18px;font-weight:900;fill:var(--ink)}.nm{font-size:15px;font-weight:700;fill:var(--ink)}.sc{font-size:12px;fill:var(--ink)}
+.tribe{cursor:pointer;outline:none}.tribe .ring{opacity:0}.tribe.sel .ring{opacity:.8}.tribe:focus-visible .ring{opacity:1;stroke:var(--b)}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:78vh;overflow:auto;background:var(--card);border-radius:24px 24px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 24px rgba(0,0,0,.18);z-index:20;border:1px solid var(--line)}
+.sheet[hidden]{display:none}.sh-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.sh-top h2{margin:0}.rg{font-size:14px;color:var(--sub);font-weight:400}
+details.panel summary{font-weight:700;cursor:pointer;min-height:32px}
+
+#stage{position:relative;height:min(72vh,640px);min-height:440px;border-radius:28px;overflow:hidden;background:linear-gradient(var(--s1),var(--s2))}
+#map[hidden]{display:none}
+.zb,.hint{position:absolute;z-index:2}
+.zb{right:10px;bottom:10px;display:flex;gap:6px}
+.zb button{width:44px;height:44px;border-radius:50%;border:0;background:var(--card);color:var(--ink);font:inherit;font-size:22px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hint{left:10px;bottom:14px;font-size:12px;color:var(--ink);background:var(--card);border-radius:10px;padding:4px 10px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:13px}.lg i{width:12px;height:12px;border-radius:4px;display:inline-block}
+
+.ttl{position:absolute;left:10px;top:10px;z-index:3;background:rgba(255,250,240,.95);border-radius:18px;padding:8px 14px;color:#c8553d}
+.ttl b{display:block;font-size:22px;font-weight:900;letter-spacing:.04em;line-height:1.2}.ttl small{color:#6b5a4a;font-size:12px}
+.tb{position:absolute;left:10px;right:10px;top:68px;z-index:3;display:flex;gap:4px;overflow-x:auto;padding:4px;background:rgba(255,250,240,.93);border-radius:999px;scrollbar-width:none}
+.tb::-webkit-scrollbar{display:none}
+.tb button{flex:none;min-height:40px;min-width:40px;border:0;border-radius:999px;background:transparent;color:#5a4a3a;font:inherit;font-size:13px;font-weight:700;padding:0 12px;cursor:pointer}
+.tb button[aria-pressed="true"]{background:#2b2623;color:#fff}.tb .sp{flex:none;width:1px;background:#d8c9b4;margin:6px 2px}
+#pills{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:2}
+#pills[hidden]{display:none}
+.pill{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:#fffaf0;color:#2b2623;border-radius:999px;padding:2px 7px;font:inherit;font-size:10px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.25);white-space:nowrap;cursor:pointer;min-height:22px;will-change:transform}
+.pill b{color:#c8553d;margin-right:0;font-size:11px}.pill.sel{background:#2b2623;color:#fff}.pill.sel b{color:#ffb38a}.pill.full{outline:2px solid #f2b82e}
+.lst{position:absolute;right:10px;top:120px;z-index:4;width:min(270px,72%);max-height:56%;overflow:auto;background:rgba(255,250,240,.97);color:#2b2623;border-radius:18px;padding:10px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.lst[hidden]{display:none}
+.lh{font-weight:900;font-size:13px;margin:6px 0 4px;display:flex;align-items:center;gap:6px}.lh i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.lc{display:flex;flex-wrap:wrap;gap:6px}.pill2{border:2px solid #e8d9c2;background:#fff;border-radius:12px;padding:6px 10px;font:inherit;font-weight:700;color:#2b2623;min-height:40px;cursor:pointer}.pill2 small{color:#8a6a4a;font-weight:400}
+
+body{margin:0}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 400px;height:100vh;min-height:560px}
+.app.nopanel{grid-template-columns:minmax(0,1fr)}.app.nopanel .side{display:none}
+.mapcol{min-width:0;min-height:0;position:relative}
+.app #stage{height:100%;min-height:0;border-radius:0}
+.side{--ink:#2b2623;--sub:#6b5a4a;--card:#fff;--line:#e6d9c8;--bg:#f4ede2;overflow:auto;background:#fbf6f0;color:#2b2623;padding:22px 22px 28px;border-left:1px solid #eadfce}
+.eyebrow{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.2em;color:#c8553d;font-weight:700}
+.hd{font-size:30px;font-weight:900;margin:10px 0 6px;letter-spacing:.02em}
+.sub{color:#6b5a4a;font-size:13px;margin:0 0 14px}
+.guide{background:#fff3ea;border:1px solid #f0d5c0;border-radius:16px;padding:14px;margin-bottom:12px}
+.guide b{display:block;font-size:15px}.guide small{color:#6b5a4a}
+.gc{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.gc button{border:1px solid #e8d2bd;background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;color:#2b2623;cursor:pointer;min-height:36px}
+#gans p{font-size:13px;margin:10px 0 0}
+.srch{width:100%;border:1px solid #e6d9c8;border-radius:14px;padding:12px 14px;font:inherit;background:#fff;color:#2b2623;margin-bottom:12px}
+.tabs{display:flex;gap:8px;margin-bottom:10px}.tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid #e6d9c8;background:#fff;color:#2b2623;font:inherit;font-weight:700;cursor:pointer}.tabs button[aria-pressed="true"]{background:#1f1b19;color:#fff;border-color:#1f1b19}
+.row2{display:flex;align-items:center;gap:14px;width:100%;border:0;background:transparent;color:#2b2623;font:inherit;text-align:left;padding:12px 4px;cursor:pointer;border-bottom:1px solid #efe5d7;min-height:48px}
+.row2 i{font-family:Georgia,serif;font-style:italic;font-size:20px;color:#c8553d;min-width:32px}
+.row2 span{flex:1;font-weight:700}.row2 small{display:block;color:#8a7a68;font-weight:400;font-size:12px}.row2 em{font-style:normal;color:#8a7a68;font-size:12px}
+.row2.big i{font-size:28px;min-width:44px}.row2.big span{font-size:16px}
+.duties{display:flex;flex-wrap:wrap;gap:6px;padding:8px 4px 12px}
+.rel{display:block;width:100%;text-align:left;border:1px solid #efe5d7;background:#fff;border-radius:14px;padding:10px 14px;margin-bottom:8px;font:inherit;color:#2b2623;cursor:pointer}.rel b{display:block;font-size:14px}.rel span{font-size:12px;color:#6b5a4a}
+.pg{margin-top:14px;background:transparent;border:0;padding:0}.pg summary{font-weight:700;cursor:pointer;min-height:36px}
+.disc{font-size:12px;color:#8a7a68;margin-top:14px}
+.pill.hot{background:#c8553d;color:#fff}.pill.hot b{color:#ffd9c9}.dim .pill:not(.hot){opacity:.35}
+.ttl{display:flex;gap:12px;align-items:center;padding:10px 16px}.ttl b{font-size:30px;line-height:.95;letter-spacing:0}.t2 strong{display:block;color:#2b2623;font-size:15px;line-height:1.2}.t2 small{color:#c8553d;font-size:11px;letter-spacing:.16em;font-weight:700}
+.tb{top:104px}
+@media(min-width:901px){.sheet{left:auto;right:0;top:0;bottom:0;width:400px;max-height:none;border-radius:0}}
+@media(max-width:900px){.app{display:block;height:auto;padding:12px}.app #stage{height:72vh;min-height:440px;border-radius:28px}.side{border:0;border-radius:24px;margin-top:12px}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<div class="app" id="app">
+<div class="mapcol">
+<div id="stage"><div class="ttl"><b>SLP<br>ISLAND.</b><span class="t2"><strong>語言治療師<br>工作島</strong><small>WORK INDEX</small></span></div><div class="tb" role="toolbar" aria-label="地圖工具"><button data-t="0" aria-label="日出" onclick="setTod(0)">🌅</button><button data-t="1" aria-label="白天" onclick="setTod(1)">☀️</button><button data-t="2" aria-label="黃昏" onclick="setTod(2)">🌇</button><button data-t="3" aria-label="夜晚" onclick="setTod(3)">🌙</button><span class="sp"></span><button id="bT" aria-pressed="true" onclick="tgl('tags')">名牌</button><button id="bL" aria-pressed="true" onclick="tgl('lines')">協作線</button><button id="bP" aria-pressed="false" onclick="tgl('pause')">暫停</button><button id="bV" aria-pressed="false" onclick="tgl('bird')">鳥瞰</button><button onclick="resetView()">全景</button><button onclick="togglePanel()">清單</button></div><div id="pills"></div><div class="lst" id="lst" hidden></div><div class="hint">左右拖曳轉動，點名牌或小屋</div><div class="zb"><button aria-label="放大" onclick="zoomBy(1.15)">＋</button><button aria-label="縮小" onclick="zoomBy(.87)">－</button></div></div>
+<div id="map" class="note" hidden></div>
+<p id="say" hidden></p>
+</div>
+<aside class="side" id="side">
+<div class="eyebrow">THE SLP WORK INDEX</div>
+<h1 class="hd">把工作，連起來。</h1>
+<p class="sub" id="cnt1"></p>
+<div class="guide"><b>你想了解哪一種協助？</b><small>選一個情境，看看相關的工作領域。</small><div class="gc" id="gc"></div><div id="gans" aria-live="polite"></div></div>
+<input id="q" class="srch" type="search" placeholder="搜尋工作、關鍵字…" aria-label="搜尋工作">
+<div class="tabs"><button id="t1" aria-pressed="true" onclick="tab(1)">工作領域</button><button id="t2" aria-pressed="false" onclick="tab(2)">協作關係 8</button></div>
+<div id="plist"></div>
+<details class="panel pg"><summary>我的進度</summary><div id="prog"></div></details>
+<p class="disc">這是一般性的介紹，不能取代專業評估。若突然出現說話或吞嚥的改變，或有其他緊急狀況，請立即就醫。</p>
+</aside>
+</div>
+<div class="sheet" id="sheet" role="dialog" aria-label="工作介紹" hidden></div>
+<script>
+const $=id=>document.getElementById(id);
+const DOM=[
+["構音與音韻","#e58f8f",[
+ ["構音評估","用圖片命名、仿說等方式，檢查各個聲母、韻母在詞首、詞中、詞尾的發音，並判斷錯誤的類型，例如省略、替代或扭曲。","幼兒到成人；醫院、學校、早療中心"],
+ ["構音治療","依評估結果設計練習，從單音、詞、句一路練到日常對話，讓正確的發音慢慢變成習慣。","構音異常的兒童與成人"],
+ ["口動評估","檢查嘴唇、舌頭、下巴的力量與協調，必要時加入口腔動作練習。","兒童、神經損傷者"],
+ ["家長衛教","教家長與老師在日常生活怎麼示範、怎麼回應，讓練習延伸到家裡和教室。","家庭、學校"]]],
+["語言發展","#e8b04a",[
+ ["語言評估","評估聽理解、口語表達、詞彙、句子與社交溝通，必要時搭配標準化測驗與日常觀察。","疑似語言發展遲緩的兒童"],
+ ["早期療育","用遊戲和日常活動，促進幼兒的溝通與語言發展。","學齡前幼兒與家庭；早療中心、醫院"],
+ ["親子指導","教家長用共讀、玩玩具等方式，在家引導孩子開口與互動。","家庭"],
+ ["個別計畫","參與個別化教育計畫（IEP）等會議，一起訂定溝通目標，並與老師討論課堂上的支持。","學齡兒童、特殊教育體系"]]],
+["語暢與嗓音","#7cb87f",[
+ ["語暢評估","觀察說話的流暢度，區分口吃與一般的不流暢，也了解說話者的感受與生活影響。","口吃的兒童、青少年與成人"],
+ ["語暢治療","教導放慢說話、輕鬆開始等技巧，並處理對說話的緊張與逃避。","口吃者與家人"],
+ ["嗓音評估","了解聲音沙啞、說話費力的情形，通常會與耳鼻喉科醫師合作。","常用聲的人，例如教師"],
+ ["嗓音衛教","教導用聲習慣與放鬆的發聲方式，減少對聲帶的負擔。","嗓音異常者"]]],
+["吞嚥與口腔功能","#6fb3d6",[
+ ["吞嚥評估","了解進食時嗆咳、吞嚥困難的情形，必要時安排影像檢查，並與醫師、營養師合作。","中風、神經疾病患者與長者"],
+ ["吞嚥訓練","教導吞嚥姿勢與口腔動作練習，調整每一口的量與進食速度。","吞嚥困難者"],
+ ["質地建議","建議食物與飲品適合的質地，兼顧安全與營養。","醫院、長照機構"],
+ ["餵食指導","教家屬與照顧者安全餵食的方法，以及遇到狀況時怎麼處理。","家庭、照護機構"],
+ ["頭頸癌吞嚥","頭頸癌（例如口腔癌、口咽癌、喉癌）的手術、放射治療或化學治療，可能影響咀嚼、吞嚥與張口。依醫療團隊的安排，在治療前後評估吞嚥狀況，教導衛教與吞嚥、口腔動作練習，並建議適合的食物質地，同時與耳鼻喉科、口腔外科、放射腫瘤科與營養師合作。","頭頸癌患者；醫院的耳鼻喉科、口腔外科、放射腫瘤科等"]]],
+["神經性溝通","#a58fd6",[
+ ["失語症","評估說、聽、讀、寫哪些受到影響，並訓練各種溝通的方法。","中風、腦傷者"],
+ ["動作性言語","處理神經損傷造成的說話不清、聲音與呼吸不協調等問題。","腦傷、神經退化性疾病患者"],
+ ["認知溝通","協助注意力、記憶、組織能力受影響時的溝通，讓日常對話更順利。","腦傷、失智症患者"],
+ ["輔助溝通","評估是否適合使用圖卡、溝通板或電子設備，並教導使用的方法。","無口語或口語很少的人"]]],
+["聽語與團隊","#e08fb8",[
+ ["聽語訓練","在配戴助聽器或人工電子耳後，訓練聽辨與說話。","聽障的兒童與成人"],
+ ["電子耳復健","與聽力師等團隊合作，追蹤聽覺與口語的發展。","人工電子耳使用者"],
+ ["跨專業合作","與醫師、聽力師、職能與物理治療師、老師、社工共同討論，必要時轉介。","醫療與教育團隊"],
+ ["病歷紀錄","把評估結果、治療目標與進度寫成紀錄（常用 SOAP 格式），讓團隊和下一次治療能銜接。","醫院、機構"]]]];
+const KEY="duties-progress";
+let prog={seen:{}};try{const t=localStorage.getItem(KEY);if(t)prog=JSON.parse(t)}catch(e){}if(!prog.seen)prog.seen={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(prog))}catch(e){}drawMap()}
+let sel=null,rst=false,hotSet=new Set(),qs="",tabN=1,openI=null;
+const ALL=[],IDX={};DOM.forEach((o,i)=>o[2].forEach(d=>{ALL.push({k:d[0],isl:i,d});IDX[d[0]]=i}));
+const seenCnt=i=>DOM[i][2].filter(d=>prog.seen[d[0]]).length,total=()=>ALL.filter(a=>prog.seen[a.k]).length;
+const num=i=>String(i+1).padStart(2,"0");
+const REL=[[0,1,"語言發展遲緩的孩子，常同時有發音問題，評估時會一起觀察。"],[1,3,"幼兒的口腔動作與進食發展，也會一起觀察。"],[3,5,"吞嚥照護常需要醫師、營養師與護理團隊一起討論。"],[5,4,"神經損傷後的溝通訓練，需要跨專業團隊與家屬一起參與。"],[4,2,"神經損傷也可能影響聲音與說話的流暢度。"],[2,0,"說話的清晰、流暢與聲音，常會一起評估。"],[1,2,"語言快速發展期的孩子可能出現不流暢，需要一起判斷。"],[2,5,"嗓音問題常需要與耳鼻喉科醫師合作評估。"]];
+const SIT=[["孩子說話不清楚",0],["孩子開口晚，或詞彙比同齡孩子少",1],["說話常卡住，或聲音沙啞",2],["吃東西、喝水容易嗆到",3],["中風或腦傷後，說話與溝通有困難",4],["聽力受損，或配戴助聽器、人工電子耳",5]];
+function matchSet(){const s=new Set();if(qs){const q=qs.toLowerCase();ALL.forEach(a=>{if((a.k+a.d[1]+a.d[2]+DOM[a.isl][0]).toLowerCase().includes(q))s.add(a.k)})}else if(hotSet.size)ALL.forEach(a=>{if(hotSet.has(a.isl))s.add(a.k)});return s}
+const listHTML=()=>DOM.map(([nm,c,ds])=>`<div class="lh"><i style="background:${c}"></i>${nm}</div><div class="lc">${ds.map(d=>`<button class="pill2" onclick="openD('${d[0]}')">${d[0]}${prog.seen[d[0]]?" ★":""}</button>`).join("")}</div>`).join("");
+function renderPanel(){
+ const ms=matchSet();let h="";
+ if(tabN===2){h=REL.map(([a,b,t])=>`<button class="rel" onclick="relHot(${a},${b})"><b>${DOM[a][0]} ↔ ${DOM[b][0]}</b><span>${t}</span></button>`).join("")}
+ else if(qs){const r=ALL.filter(a=>ms.has(a.k));h=r.length?r.map(a=>`<button class="row2" onclick="openD('${a.k}')"><i>${num(a.isl)}</i><span>${a.k}<small>${DOM[a.isl][0]}</small></span><em>${prog.seen[a.k]?"★":"↗"}</em></button>`).join(""):`<p class="note">找不到相關的工作，換個關鍵字試試。</p>`}
+ else h=DOM.map(([nm,c,ds],i)=>`<div><button class="row2 big" onclick="openTheme(${i})"><i>${num(i)}</i><span>${nm}</span><em>${seenCnt(i)}/${ds.length} ↗</em></button>${openI===i?`<div class="duties">${ds.map(d=>`<button class="pill2" onclick="openD('${d[0]}')">${d[0]}${prog.seen[d[0]]?" ★":""}</button>`).join("")}</div>`:""}</div>`).join("");
+ $("plist").innerHTML=h}
+function tab(n){tabN=n;$("t1").setAttribute("aria-pressed",n===1);$("t2").setAttribute("aria-pressed",n===2);renderPanel()}
+function openTheme(i){openI=openI===i?null:i;hotSet=openI===null?new Set():new Set([i]);drawMap()}
+function relHot(a,b){hotSet=new Set([a,b]);qs="";$("q").value="";drawMap()}
+function sit(n){const [t,i]=SIT[n];qs="";$("q").value="";hotSet=new Set([i]);openI=i;tab(1);
+ $("gans").innerHTML=`<p>「${t}」可能與<b>${DOM[i][0]}</b>領域的工作有關：${DOM[i][2].map(d=>d[0]).join("、")}。這只是方便認識工作內容，實際情況需要由專業人員評估。${i===3?"吃東西或喝水常嗆到，建議儘早就醫評估。":""}</p>`;drawMap()}
+function togglePanel(){if(matchMedia("(max-width:900px)").matches)$("side").scrollIntoView({behavior:"smooth"});else $("app").classList.toggle("nopanel")}
+function drawFlat(){
+ $("map").innerHTML="這台裝置無法顯示 3D 地圖，改用清單瀏覽："+listHTML();
+ const t=total();$("cnt1").innerHTML=`${DOM.length} 個工作領域 ／ ${ALL.length} 項工作<br>選一項工作，走進它的內容。`;
+ $("prog").innerHTML=`<div class="q">已看過 ${t} / ${ALL.length} 項</div><div class="bar"><i style="width:${t/ALL.length*100}%"></i></div><div class="note">進度存在這台裝置的瀏覽器裡。</div><div class="row"><button class="btn alt" onclick="clr()">${rst?"確定清除？再按一次":"清除進度"}</button></div>`}
+function drawMap(){drawFlat();renderPanel();upd3D()}
+function openD(k){const a=ALL.find(x=>x.k===k),o=DOM[a.isl];sel=k;prog.seen[k]=1;$("sheet").hidden=false;document.body.style.paddingBottom=matchMedia("(max-width:900px)").matches?"70vh":"";
+ $("sheet").innerHTML=`<div class="sh-top"><h2>${k}　<span class="rg">${num(a.isl)} ${o[0]}</span></h2><button class="btn alt" onclick="closeT()">關閉</button></div><div class="word" style="text-align:left"><div class="q" style="margin-top:0">做什麼</div><p style="margin:0 0 12px">${a.d[1]}</p><div class="q">服務對象與場域</div><p style="margin:0">${a.d[2]}</p></div><div class="note">這是一般性的介紹，實際的工作內容會依機構、個案與團隊而不同。</div>`;save()}
+function closeT(){$("sheet").hidden=true;document.body.style.paddingBottom="";sel=null;drawMap()}
+function clr(){if(!rst){rst=true;drawFlat();return}prog={seen:{}};rst=false;save();if(!$("sheet").hidden)closeT()}
+$("gc").innerHTML=SIT.map((x,i)=>`<button onclick="sit(${i})">${x[0]}</button>`).join("");
+$("q").addEventListener("input",e=>{qs=e.target.value.trim();hotSet=new Set();drawMap()});
+
+let gl=false,R,SC,CA,WORLD,STAGE,CFG,FIG,LINES,HEMI,DIR,SEA,DIST=25,zoom=1,rotY=0,pitch=.88,tPitch=.88,bird=false,drag=null,T=0,lastT=0,paused=false,showTags=true,tod=1;
+const HUTS={},ISL=[],CUR=[],PEOPLE=[],BOATS=[],NIGHT=[],WIND=[];
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IPOS=[[-3,-3.45],[1,-3.45],[-1,0],[3,0],[-3,3.45],[1,3.45]];
+const ROOFS=[0xc8553d,0x3f7fa8,0xe0a33a,0x7a9a58],PCOL=[0xd9534f,0x3f7fa8,0xe0a33a,0x6aa84f,0x8e5ea2,0x2b2623];
+const TOD=[{bg:["#ffd9b0","#f4a98a"],sea:0x76b6c4,hi:0xffe2c0,lo:0x7a8fa8,hiI:.8,d:0xffc890,dI:.8,n:0},{bg:["#bfe6f5","#8ecfe3"],sea:0x6bb8c9,hi:0xffffff,lo:0x6fa8a8,hiI:.95,d:0xffffff,dI:.85,n:0},{bg:["#ffb98a","#d9708a"],sea:0x6a9fb8,hi:0xffd2a8,lo:0x6a7a98,hiI:.75,d:0xff9a6a,dI:.8,n:0},{bg:["#16284a","#0a1426"],sea:0x1d4358,hi:0x6c86c0,lo:0x1a2438,hiI:.55,d:0x7f9cff,dI:.35,n:1}];
+const mats=new Map(),GE={};
+function M(c,o){const k=c+(o?JSON.stringify(o):"");if(!mats.has(k))mats.set(k,new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:1,flatShading:true},o||{})));return mats.get(k)}
+function mesh(g,c,sx,sy,sz,x,y,z,mt){const m=new THREE.Mesh(GE[g],mt||M(c));m.scale.set(sx,sy,sz);m.position.set(x,y,z);return m}
+function rnd(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function tree(x,y,z,s,k){const g=new THREE.Group();g.add(mesh("cyl",0x8a5a2b,.06*s,.4*s,.06*s,0,.2*s,0));if(k%2){g.add(mesh("cone6",0x3f8f55,.3*s,.5*s,.3*s,0,.6*s,0),mesh("cone6",0x4aa163,.22*s,.4*s,.22*s,0,.9*s,0))}else g.add(mesh("ico",0x5fb26a,.3*s,.3*s,.3*s,0,.58*s,0));g.position.set(x,y,z);return g}
+function house(x,y,z,s,rc){const g=new THREE.Group(),w=mesh("box",0,.5*s,.36*s,.5*s,0,.18*s,0,M(0xfff1d6)),r=mesh("cone4",rc,.42*s,.3*s,.42*s,0,.5*s,0);r.rotation.y=Math.PI/4;g.add(w,r);g.position.set(x,y,z);return g}
+function lamp(x,y,z){const g=new THREE.Group(),lm=new THREE.MeshStandardMaterial({color:0xfff3c0,roughness:1});NIGHT.push({m:lm,e:0xffd36a});g.add(mesh("cyl",0x5a4a3a,.015,.5,.015,0,.25,0),mesh("sph",0,.05,.05,.05,0,.52,0,lm));g.position.set(x,y,z);return g}
+function person(c){const g=new THREE.Group();g.add(mesh("cyl",c,.07,.26,.07,0,.13,0),mesh("sph",0xf2c9a0,.07,.07,.07,0,.32,0));return g}
+function fit(){if(!gl)return;const w=STAGE.clientWidth,h=STAGE.clientHeight;if(!w||!h)return;R.setSize(w,h,false);CA.aspect=w/h;CA.updateProjectionMatrix();DIST=Math.max(10.8/CA.aspect,13)/(2*Math.tan(20*Math.PI/180))/zoom}
+function zoomBy(f){zoom=Math.max(.7,Math.min(1.7,zoom*f));fit()}
+function setTod(i){tod=i;const t=TOD[i];STAGE.style.background="linear-gradient("+t.bg[0]+","+t.bg[1]+")";SEA.material.color.setHex(t.sea);HEMI.color.setHex(t.hi);HEMI.groundColor.setHex(t.lo);HEMI.intensity=t.hiI;DIR.color.setHex(t.d);DIR.intensity=t.dI;NIGHT.forEach(n=>n.m.emissive.setHex(t.n?n.e:0));document.querySelectorAll(".tb [data-t]").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.t===i))}
+function tgl(n){
+ if(n==="tags"){showTags=!showTags;$("pills").hidden=!showTags;$("bT").setAttribute("aria-pressed",showTags)}
+ else if(n==="lines"){LINES.visible=!LINES.visible;$("bL").setAttribute("aria-pressed",LINES.visible)}
+ else if(n==="pause"){paused=!paused;$("bP").setAttribute("aria-pressed",paused)}
+ else if(n==="bird"){bird=!bird;tPitch=bird?1.38:.88;$("bV").setAttribute("aria-pressed",bird)}
+ else if(n==="list"){const l=$("lst");l.hidden=!l.hidden;if(!l.hidden)l.innerHTML=CFG.list()}}
+function resetView(){rotY=0;zoom=1;bird=false;tPitch=.88;$("bV").setAttribute("aria-pressed",false);fit()}
+function upd3D(){if(!gl)return;const fl=CFG.flags();
+ Object.values(HUTS).forEach(h=>{const k=h.it.k,on=CFG.isSel(k);h.ring.visible=on;h.g.scale.setScalar(on?1.15:1);h.body.material.color.setHex(CFG.lit(k)?0xffe9a0:0xfff4dc);if(h.pill){const d=CFG.pill(k);h.pill.innerHTML="<b>"+(d.star?"★ ":"")+d.t+"</b>"+d.s;h.pill.classList.toggle("sel",on);h.pill.classList.toggle("full",!!d.full);h.pill.classList.toggle("hot",!!(CFG.hot&&CFG.hot(k)))}});
+ ISL.forEach((o,i)=>{o.flag.material.color.setHex(fl[i]?0xf2b82e:0xffffff);const vis=2+Math.round(CFG.prog(i)*6);PEOPLE.forEach(p=>{if(p.j===i)p.m.visible=p.i<vis})});
+ $("pills").classList.toggle("dim",!!(CFG.anyHot&&CFG.anyHot()));if(!$("lst").hidden)$("lst").innerHTML=CFG.list()}
+let _v;
+function place(){const w=STAGE.clientWidth,hh=STAGE.clientHeight;Object.values(HUTS).forEach(h=>{if(!h.pill)return;h.g.getWorldPosition(_v);_v.y+=(h.it.s||1)*1.1+.3;_v.project(CA);h.pill.style.display=_v.z<1?"":"none";h.pill.style.transform="translate("+((_v.x*.5+.5)*w)+"px,"+((-_v.y*.5+.5)*hh)+"px) translate(-50%,-100%)"})}
+function pickAt(e){const el=R.domElement,rc=new THREE.Raycaster(),v=new THREE.Vector2(),b=el.getBoundingClientRect();v.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);rc.setFromCamera(v,CA);
+ for(const h of rc.intersectObjects(Object.values(HUTS).map(h=>h.g),true)){let o=h.object;while(o&&!o.userData.k)o=o.parent;if(o){CFG.onPick(o.userData.k);return}}}
+function loop(t){requestAnimationFrame(loop);const dt=Math.min(50,t-lastT);lastT=t;if(document.hidden||!STAGE.clientWidth)return;
+ if(!paused&&!RM)T+=dt;
+ WORLD.rotation.y=rotY+((drag||RM)?0:Math.sin(T*.0004)*.08);
+ pitch+=(tPitch-pitch)*.12;
+ ISL.forEach(o=>{o.g.position.y=RM?0:Math.sin(T*.0009+o.ph)*.12});
+ PEOPLE.forEach(p=>{if(!p.m.visible)return;const a=T*p.w+p.ph;p.m.position.set(p.x+Math.cos(a)*p.rd,.56+Math.abs(Math.sin(a*6))*.025,p.z+Math.sin(a)*p.rd);p.m.rotation.y=-a});
+ WIND.forEach(w=>{w.rotation.z=T*.002});
+ BOATS.forEach(b=>{const q=T*.00018+b.ph;b.g.position.x=Math.sin(q)*7.5;b.g.rotation.y=Math.cos(q)>0?0:Math.PI});
+ if(CUR.length&&LINES.visible){const u=T/5000,i=Math.floor(u)%CUR.length;FIG.position.copy(CUR[i].getPoint(u-Math.floor(u)))}
+ CA.position.set(0,DIST*Math.sin(pitch)+.4,DIST*Math.cos(pitch)+.6);CA.lookAt(0,.8,-.8);CA.updateMatrixWorld();
+ place();R.render(SC,CA)}
+function init3D(cfg){
+ CFG=cfg;STAGE=$("stage");
+ try{if(typeof THREE==="undefined")throw 0;R=new THREE.WebGLRenderer({antialias:true,alpha:true});gl=!!R.getContext()}catch(e){gl=false}
+ if(!gl){STAGE.hidden=true;$("map").hidden=false;return}
+ _v=new THREE.Vector3();GE.box=new THREE.BoxGeometry(1,1,1);GE.cone4=new THREE.ConeGeometry(1,1,4);GE.cone6=new THREE.ConeGeometry(1,1,6);GE.cyl=new THREE.CylinderGeometry(1,1,1,6);GE.taper=new THREE.CylinderGeometry(1,.33,1,6);GE.ico=new THREE.IcosahedronGeometry(1,0);GE.sph=new THREE.SphereGeometry(1,8,6);GE.round=new THREE.CylinderGeometry(1,1,1,14);
+ R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+ const el=R.domElement;el.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab";
+ el.setAttribute("role","img");el.setAttribute("aria-label","3D 浮空島地圖");STAGE.insertBefore(el,STAGE.firstChild);
+ SC=new THREE.Scene();CA=new THREE.PerspectiveCamera(40,1,.1,150);
+ HEMI=new THREE.HemisphereLight(0xffffff,0x6fa8a8,.95);DIR=new THREE.DirectionalLight(0xffffff,.85);DIR.position.set(-6,12,8);SC.add(HEMI,DIR);
+ SEA=new THREE.Mesh(new THREE.CylinderGeometry(70,70,.3,48),new THREE.MeshStandardMaterial({color:0x6bb8c9,roughness:.9,flatShading:true}));SEA.position.y=-.6;SC.add(SEA);
+ const rb=rnd(11);
+ [[-9,-14,6,3.2],[-2,-16,7,4],[7,-15,6,3.4],[-15,-11,5,2.4],[14,-12,5,2.6]].forEach(([x,z,r,h],i)=>{SC.add(mesh("cone6",0,r,h,r,x,h/2-.4,z,M(i%2?0x8fc17f:0xa7d08f)));for(let q=0;q<7;q++){const a=rb()*6.28,d=rb()*.65*r,hy=h*(1-d/r)-.4;SC.add(tree(x+Math.sin(a)*d,hy,z+Math.cos(a)*d,1.3,q))}});
+ [[-5.4,-8.8],[5.6,-9]].forEach(([x,z],i)=>{const g=new THREE.Group();g.add(mesh("round",0xe6c99c,1.5,.5,1.5,0,-.1,0),mesh("round",0x9ccf8e,1.3,.06,1.3,0,.17,0));if(i){g.add(tree(0,.2,0,1.6,1),tree(.6,.2,.3,1,0))}else{g.add(mesh("cone4",0xfff4dc,.14,1.6,.14,0,1,0));const w=new THREE.Group();w.position.set(0,1.7,.16);for(let b=0;b<3;b++){const bl=mesh("box",0xffffff,.06,.9,.02,0,0,0);bl.geometry=GE.box;const p=new THREE.Group();p.rotation.z=b*Math.PI*2/3;bl.position.y=.45;p.add(bl);w.add(p)}g.add(w);WIND.push(w)}g.position.set(x,0,z);SC.add(g)});
+ [[4.4,8.3],[-4.7,8.6]].forEach(([x,z],i)=>{const g=new THREE.Group();g.add(mesh("round",i?0xb9b2a6:0xe6c99c,1.1,.5,1.1,0,-.1,0));if(!i)g.add(mesh("round",0x9ccf8e,.95,.06,.95,0,.17,0),tree(0,.2,0,1.2,0));g.position.set(x,0,z);SC.add(g)});
+ [[-6.5,-6.5,0],[6.5,8.4,2]].forEach(([x,z,ph])=>{const g=new THREE.Group();g.add(mesh("box",0xd9822b,1.1,.2,.42,0,.1,0),mesh("cone4",0xffffff,.32,.8,.32,0,.6,0));g.position.set(x,-.35,z);SC.add(g);BOATS.push({g,ph,z})});
+ WORLD=new THREE.Group();SC.add(WORLD);LINES=new THREE.Group();WORLD.add(LINES);
+ cfg.islands.forEach((is,j)=>{
+  const [x,z]=IPOS[is.p],g=new THREE.Group();g.position.set(x,0,z);
+  const lawn=new THREE.Color(0x9ccf8e).lerp(new THREE.Color(is.color),.3).getHex();
+  g.add(mesh("cyl",0xe6c99c,2.15,.5,2.15,0,.25,0),mesh("taper",0xb98a5a,2.15,1.5,2.15,0,-.75,0),mesh("cyl",lawn,1.9,.06,1.9,0,.53,0));
+  [.5,2.62].forEach(a=>{const p=mesh("box",0xf4e6c8,3.1,.03,.42,0,.565,0);p.rotation.y=a;g.add(p)});
+  const sh=mesh("cyl",0x9fe0e0,2.95,.02,2.95,x,-.42,z,M(0x9fe0e0,{transparent:true,opacity:.35}));WORLD.add(sh);
+  const pole=mesh("cyl",0x6b4a2b,.03,2,.03,is.pole[0],1.5,is.pole[1]),fm=new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,flatShading:true}),flag=new THREE.Mesh(GE.box,fm);flag.scale.set(.5,.3,.04);flag.position.set(is.pole[0]+.27,2.3,is.pole[1]);
+  g.add(pole,flag);
+  const rg=rnd(7+j*13),vs=is.dec?is.dec.v:[0,1,2,3,4,5],ms=is.dec?is.dec.m:[0,1,2,3,4,5];
+  vs.forEach(k=>{const th=k*Math.PI/3;g.add(tree(Math.sin(th)*1.62,.56,Math.cos(th)*1.62,.9+rg()*.5,k+j))});
+  ms.forEach(k=>{const th=Math.PI/6+k*Math.PI/3,px=Math.sin(th)*1.65,pz=Math.cos(th)*1.65;g.add(k%2?lamp(px,.56,pz):house(px,.56,pz,.7+rg()*.2,ROOFS[(k+j)%4]))});
+  for(let i=0;i<8;i++){const a=rg()*6.28,r=.5+rg()*.9,p=person(PCOL[(i+j)%6]),o={m:p,x:Math.sin(a)*r,z:Math.cos(a)*r,rd:.12+rg()*.2,w:.0006+rg()*.0006,ph:rg()*6.28,j,i};p.position.set(o.x,.56,o.z);p.visible=i<2;g.add(p);PEOPLE.push(o)}
+  WORLD.add(g);ISL.push({g,flag,x,z,ph:j*1.3,pole:is.pole})});
+ const pills=$("pills");
+ cfg.items.forEach(it=>{
+  const s=it.s||1,g=new THREE.Group();g.position.set(it.ox,.56,it.oz);g.userData.k=it.k;
+  const bm=new THREE.MeshStandardMaterial({color:0xfff4dc,roughness:1,flatShading:true});NIGHT.push({m:bm,e:0x7a6428});
+  const body=new THREE.Mesh(GE.box,bm);body.scale.set(.9*s,.6*s,.9*s);body.position.y=.3*s;
+  const roof=mesh("cone4",it.color,.78*s,.55*s,.78*s,0,.875*s,0);roof.rotation.y=Math.PI/4;
+  const door=mesh("box",0x7a4b25,.22*s,.34*s,.05,0,.17*s,.46*s);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(.8*s,.05,6,28),M(0x12303a));ring.rotation.x=Math.PI/2;ring.position.y=.04;ring.visible=false;
+  g.add(body,roof,door,ring);const h={g,it,ring,body};
+  if(it.tag!==false){const b=document.createElement("button");b.type="button";b.className="pill";b.onclick=()=>cfg.onPick(it.k);pills.appendChild(b);h.pill=b}
+  ISL[it.isl].g.add(g);HUTS[it.k]=h});
+ const P=j=>{const i=ISL[j];return new THREE.Vector3(i.x+i.pole[0],2.5,i.z+i.pole[1])};
+ const mk=(a,b)=>{const A=P(a),B=P(b),Mi=A.clone().add(B).multiplyScalar(.5);Mi.y=6.6;const cu=new THREE.QuadraticBezierCurve3(A,Mi,B);LINES.add(new THREE.Mesh(new THREE.TubeGeometry(cu,24,.04,5),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.8})));return cu};
+ const cy=cfg.cycle;cy.forEach((a,i)=>CUR.push(mk(a,cy[(i+1)%cy.length])));
+ (cfg.extra||[]).forEach(([a,b])=>mk(a,b));
+ FIG=new THREE.Group();FIG.add(mesh("cone6",0xd9822b,.18,.5,.18,0,.25,0),mesh("sph",0xffe0b0,.14,.14,.14,0,.62,0));FIG.position.copy(CUR[0].getPoint(0));LINES.add(FIG);
+ el.addEventListener("pointerdown",e=>{drag={x:e.clientX,y:e.clientY,r:rotY,m:0};try{el.setPointerCapture(e.pointerId)}catch(_){}});
+ el.addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-drag.x;drag.m=Math.max(drag.m,Math.abs(dx),Math.abs(e.clientY-drag.y));rotY=Math.max(-.9,Math.min(.9,drag.r+dx*.006))});
+ el.addEventListener("pointerup",e=>{if(drag&&drag.m<8)pickAt(e);drag=null});
+ el.addEventListener("pointercancel",()=>{drag=null});
+ new ResizeObserver(fit).observe(STAGE);fit();setTod(1);
+ if(document.fonts)document.fonts.ready.then(()=>drawMap());
+ requestAnimationFrame(loop)}
+
+const OFF4=[[-.8,-.7],[.8,-.7],[-.8,.75],[.8,.75]],OFF5=[[-1,-.7],[1,-.7],[-1.1,.8],[0,.95],[1.1,.8]],ITEMS=[];
+DOM.forEach(([nm,c,ds],i)=>{const O=ds.length===5?OFF5:OFF4;ds.forEach((d,j)=>ITEMS.push({k:d[0],isl:i,ox:O[j][0],oz:O[j][1],color:c,s:.8}))});
+init3D({islands:DOM.map((d,i)=>({p:i,color:d[1],pole:[0,0],dec:d[2].length===5?{v:[3],m:[1,2,3,4]}:undefined})),items:ITEMS,cycle:[0,1,3,5,4,2],extra:[[1,2],[2,5]],onPick:openD,isSel:k=>k===sel,lit:k=>!!prog.seen[k],flags:()=>DOM.map((d,i)=>seenCnt(i)===d[2].length),pill:k=>({t:num(IDX[k]),s:" "+k,full:!!prog.seen[k]}),prog:i=>seenCnt(i)/DOM[i][2].length,list:listHTML,hot:k=>matchSet().has(k),anyHot:()=>matchSet().size>0});
+drawMap();
+</script>
+</body>
+</html>
